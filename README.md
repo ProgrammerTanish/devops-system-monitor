@@ -25,6 +25,21 @@ Built as a two-script system the way real DevOps tools work:
 
 ---
 
+## Concepts Used
+
+This project was built to demonstrate real DevOps and Python patterns:
+
+- **Separation of concerns** — one script collects, one script analyses. This is how tools like Prometheus + Grafana work at scale.
+- **Structured logging** — consistent key-value format that a parser can reliably read back
+- **Cooldown / debounce** — alert state tracking to prevent notification floods
+- **Background threads** — non-blocking I/O so a slow SMTP server never pauses monitoring
+- **Consecutive-check filtering** — avoids false positives from momentary spikes
+- **Cross-platform paths** — `psutil.disk_partitions()` instead of hardcoded `/` or `C:\`
+- **Graceful degradation** — every `check_*` function returns `"N/A"` on failure so one broken metric never kills the whole loop
+
+---
+
+
 ## Requirements
 
 - Python 3.10 or higher
@@ -384,19 +399,6 @@ sudo systemctl status system-monitor
 
 ---
 
-## Concepts Used
-
-This project was built to demonstrate real DevOps and Python patterns:
-
-- **Separation of concerns** — one script collects, one script analyses. This is how tools like Prometheus + Grafana work at scale.
-- **Structured logging** — consistent key-value format that a parser can reliably read back
-- **Cooldown / debounce** — alert state tracking to prevent notification floods
-- **Background threads** — non-blocking I/O so a slow SMTP server never pauses monitoring
-- **Consecutive-check filtering** — avoids false positives from momentary spikes
-- **Cross-platform paths** — `psutil.disk_partitions()` instead of hardcoded `/` or `C:\`
-- **Graceful degradation** — every `check_*` function returns `"N/A"` on failure so one broken metric never kills the whole loop
-
----
 
 ## License
 
